@@ -1,0 +1,26 @@
+.include "aslib/string/haspre.s"
+.include "aslib/string/haspos.s"
+
+.include "aslib/string/strlen.s"
+.include "aslib/string/strcmp.s"
+
+.include "aslib/string/flagb.s"
+.include "aslib/string/flags.s"
+.include "aslib/string/flagi.s"
+.include "aslib/string/flagf.s"
+.include "aslib/string/vflagb.s"
+.include "aslib/string/vflags.s"
+.include "aslib/string/vflagi.s"
+.include "aslib/string/vflagf.s"
+.include "aslib/string/parseargs.s"
+
+.include "aslib/string/basename.s"
+.include "aslib/string/isbase.s"
+.include "aslib/string/isoctal.s"
+.include "aslib/string/isint.s"
+.include "aslib/string/isfloat.s"
+.include "aslib/string/strchr.s"
+.include "aslib/string/strrchr.s"
+
+.include "aslib/string/tolower.s"
+.include "aslib/string/toupper.s"
