@@ -5,20 +5,8 @@
 .section .text
 .global atoi
 .type atoi, @function
-
 atoi: # atoi(str)
-    pushq  %rbp
-    movq   %rsp, %rbp
-    subq   $16, %rsp
-    movq   $1, -8(%rbp)
-
-    call   isint
-    testq  %rax, %rax
-    jns    1f
-    leave
-    ret
-
-    1:
+    movq   $1, %rdx
     movq  %rdi, %rsi
     xor   %rdi, %rdi
     xor   %rax, %rax
@@ -30,29 +18,38 @@ atoi: # atoi(str)
     jmp   .LPATOI0
 
     1:
-    cmpb  $'-', %al     # If negative set NFLAG
+    cmpb  $'-', %al
     jne   .LPATOI0
-    movq  $-1, -8(%rbp)
+    movq  $-1, %rdx
     lodsb
 
     .LPATOI0:
     cmpb  $0, %al
     je    1f
 
-    subb  $'0', %al
-    addq  %rax, %rdi # rdi will hold the result
+    # Validation 
+    cmpb  $'0', %al
+    jb    2f
+    cmpb  $'9', %al
+    ja    2f
+
+    subb  $'0', %al 
+    addq  %rax, %rdi
 
     lodsb
-
     cmpb  $0, %al
     je    1f
 
-    imul  $10, %rdi # Adjust the base
+    imul  $10, %rdi
     jmp   .LPATOI0
 
     1:
-    imul  -8(%rbp), %rdi # res *= NFLAG
+    imul  %rdx, %rdi
     movq  %rdi, %rax
+    ret
 
-    leave
+    # Erorr
+    2:
+    xor %rax, %rax
+    movq $-1, %rdx
     ret
